@@ -285,7 +285,7 @@ Updated /signin route <br>
 
 
 You can try login successfully and try also failed Logins.
-Check error.log file in your Projects and See the Logs  
+Check error.log file in your Project Folder and See the Logs  
 
 <br>
 Logging in an application provides numerous advantages, enhancing the overall development, maintenance, and operational processes. Here are some key benefits:  <br>
