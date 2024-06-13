@@ -2,7 +2,7 @@
 from flask import *
 import pymysql
 
-import bleach
+
 # create a Flask app
 app = Flask(__name__)
 # sessions - used in identify a user after login
@@ -10,6 +10,11 @@ app = Flask(__name__)
 # you secure by setting a unique key that no one else knows
 # above key is used to encrypt use session
 app.secret_key = '1_@Ma8vU!_qRb_*A'
+
+
+
+
+
 
 
 @app.route('/signin',  methods= ['POST','GET'])
@@ -27,6 +32,7 @@ def signin():
                        (email, password))
         # check if above query found a match or not
         if cursor.rowcount == 0:
+            app.logger.error(f'Failed login attempt for email: {email}')
             return render_template('signin.html', error = 'Wrong Credentials')
 
         else:
@@ -35,6 +41,7 @@ def signin():
             role = user[3] # role is at position 3 in our table
             # Store the Role and Email in session
             session['userrole'] = role
+            
             return redirect('/')
 
     else:

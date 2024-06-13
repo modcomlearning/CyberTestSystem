@@ -1,0 +1,3 @@
+2024-06-13 16:42:47,723 ERROR: Failed login attempt for email: admin@company.com [in /home/user/Documents/CyberTestSystem/app.py:42]
+2024-06-13 16:45:41,643 ERROR: Failed login attempt for email: hgfhfg@fgfhgfh.com [in /home/user/Documents/CyberTestSystem/app.py:42]
+2024-06-13 16:46:29,964 ERROR: Failedffff login attempt for email: user@company.com [in /home/user/Documents/CyberTestSystem/app.py:46]

@@ -217,4 +217,66 @@ Confirm in your database, messages table. Notice that the JS code is Sanitized,I
 i.e the < > signs have been replaced by &lt  and  &gt respectively, This removes JS capabilities. <br> 
 
 Similary, Login as admin and view messages, Notice the Messages are well Viewed as they way it was Posted.
+
+### Part 3- Logging and Monitoring 
+Logging is a method of tracking and storing data to ensure application availability and to assess the impact of state transformations on performance. Monitoring is a diagnostic tool used for alerting system-related issues by analyzing metrics.<br>
+
+Add this code below. Place after app.secret_key = '1_@Ma8vU!_qRb_*A'
+
+
+      # Configure logging
+      import logging
+      from logging.handlers import RotatingFileHandler
+      handler = RotatingFileHandler('error.log', maxBytes=10000, backupCount=1)
+      handler.setLevel(logging.ERROR)
+      formatter = logging.Formatter(
+         '%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]')
+      handler.setFormatter(formatter)
+      app.logger.addHandler(handler)
+
+
+
+Then In /signin route we can log an error after a failed Login
+See below an updated /signin , Observe this line     
+
+      app.logger.error(f'Failed login attempt for email: {email}')
+
+Updated /signin route <br>
+
+      @app.route('/signin',  methods= ['POST','GET'])
+      def signin():
+         if request.method =='POST':
+            email = request.form['email']
+            password = request.form['password']
+
+            connection = pymysql.connect(host='localhost', user='root', password='',
+                                          database='CyberTestSystem')
+
+            cursor = connection.cursor()
+
+            cursor.execute('select * from users where email = %s and password = %s',
+                           (email, password))
+            # check if above query found a match or not
+            if cursor.rowcount == 0:
+                  app.logger.error(f'Failed login attempt for email: {email}')
+                  return render_template('signin.html', error = 'Wrong Credentials')
+
+            else:
+                  user = cursor.fetchone()
+                  # Retrieve the user Role
+                  role = user[3] # role is at position 3 in our table
+                  # Store the Role and Email in session
+                  session['userrole'] = role
+                  
+                  return redirect('/')
+
+         else:
+            return render_template('signin.html')
+
+
+
+Read more <br>
+https://www.appdynamics.com/product/how-it-works/application-analytics/log-analytics/monitoring-vs-logging-best-practices#~best-practices-for-integrating-logging-and-monitoring
+
+
 END 
