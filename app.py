@@ -11,8 +11,16 @@ app = Flask(__name__)
 # above key is used to encrypt use session
 app.secret_key = '1_@Ma8vU!_qRb_*A'
 
-
-
+# Configure logging
+import logging
+from logging.handlers import RotatingFileHandler
+handler = RotatingFileHandler('error.log', maxBytes=10000, backupCount=1)
+handler.setLevel(logging.DEBUG)
+formatter = logging.Formatter(
+    '%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]')
+handler.setFormatter(formatter)
+app.logger.addHandler(handler)
+app.logger.setLevel(logging.DEBUG) 
 
 
 
@@ -36,6 +44,7 @@ def signin():
             return render_template('signin.html', error = 'Wrong Credentials')
 
         else:
+            app.logger.info(f'Success login for email: {email}')
             user = cursor.fetchone()
             # Retrieve the user Role
             role = user[3] # role is at position 3 in our table

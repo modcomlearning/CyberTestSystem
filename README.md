@@ -224,22 +224,30 @@ Logging is a method of tracking and storing data to ensure application availabil
 Add this code below. Place after app.secret_key = '1_@Ma8vU!_qRb_*A'
 
 
+We use Flask Logger,   Flask's app.logger uses Python's built-in logging module, which does not include a success logging level by default. The default logging levels are: DEBUG, INFO, WARNING, ERROR, and CRITICAL.
+
+
+
       # Configure logging
       import logging
       from logging.handlers import RotatingFileHandler
       handler = RotatingFileHandler('error.log', maxBytes=10000, backupCount=1)
-      handler.setLevel(logging.ERROR)
+      handler.setLevel(logging.DEBUG)
       formatter = logging.Formatter(
          '%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]')
       handler.setFormatter(formatter)
       app.logger.addHandler(handler)
+      app.logger.setLevel(logging.DEBUG) 
 
 
 
 Then In /signin route we can log an error after a failed Login
-See below an updated /signin , Observe this line     
+See below an updated /signin , Observe these lines  and place them in your login.
+
+
 
       app.logger.error(f'Failed login attempt for email: {email}')
+      app.logger.info(f'Success login for email: {email}')
 
 Updated /signin route <br>
 
@@ -262,6 +270,7 @@ Updated /signin route <br>
                   return render_template('signin.html', error = 'Wrong Credentials')
 
             else:
+                  app.logger.info(f'Success login for email: {email}')
                   user = cursor.fetchone()
                   # Retrieve the user Role
                   role = user[3] # role is at position 3 in our table
