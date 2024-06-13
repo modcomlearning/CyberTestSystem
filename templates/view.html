@@ -28,7 +28,7 @@
                 {%  for message in messages  %}
                      <div>
                          <b>{{message[1]}}</b> <br>
-                         <p class="text-muted">{{message[2]}}</p>
+                         <p class="text-muted">{{message[2] |safe }}</p>
                        
                          <br><br>
                      </div>
