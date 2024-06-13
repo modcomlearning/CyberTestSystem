@@ -13,7 +13,7 @@
  Run your Flask App.
  Access  http://127.0.0.1:5000/signin
 
- ### Broken Access Control 
+ ### Part1 - Broken Access Control 
  The Application has 2 user Account: Admin and User Roles<br>
  Admins can only View Messages and Users can Only Add a Message. <br>
 
@@ -67,7 +67,7 @@ Automated Tools: Use automated tools to help manage and review access control co
 Security Frameworks: Leverage security frameworks and libraries that provide built-in access control mechanisms, such as Spring Security for Java or ASP.NET Identity for .NET applications.
 
 
- ### Stored XSS
+ ### Part2 - Stored XSS
  Stored XSS, also known as persistent XSS, is the more damaging of the two. It occurs when a malicious script is injected directly into a vulnerable web application, mostly it ca be stored in the database. This Script will execute when a user visits a Page that fetches the data containing the injected script. Reflected XSS on the other hand involves the reflecting of a malicious script off of a web application, onto a user's browser.
 
  This application also demonstrates stored XSS scenario and their Protection.
