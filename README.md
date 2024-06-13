@@ -128,9 +128,9 @@ JavaScript Encoding: When inserting user data into JavaScript, ensure it's prope
 3. Content Security Policy (CSP)<br>
 Implement a Content Security Policy to restrict the sources from which your web application can load resources. This can help mitigate the impact of XSS by blocking the execution of malicious scripts.
 
-<br>
-Content-Security-Policy: script-src 'self';
-<br>
+      <br>
+      Content-Security-Policy: script-src 'self';
+      <br>
 
 4. HTTPOnly and Secure Cookies<br>
 HTTPOnly Cookies: Set the HttpOnly flag on cookies to prevent access to them via JavaScript.
