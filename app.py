@@ -1,6 +1,8 @@
 
 from flask import *
 import pymysql
+
+import bleach
 # create a Flask app
 app = Flask(__name__)
 # sessions - used in identify a user after login
@@ -65,7 +67,8 @@ def add():
             if request.method =='POST':
                 message_title = request.form['message_title']
                 message_body = request.form['message_body']
-    
+                
+
                 # we now save our message_title, message_body to database
                 connection = pymysql.connect(host='localhost', user='root', password='',
                                             database='CyberTestSystem')

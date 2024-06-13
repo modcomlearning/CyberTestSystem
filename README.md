@@ -79,7 +79,7 @@ Security Frameworks: Leverage security frameworks and libraries that provide bui
         <script>alert("Hello JS");</script>
        Thank you.
 
-Please confirm in the messages table in your database that the Above script has been saved as it is.
+Please confirm in the messages table in your database that the Above script has been saved as it is(Code).
 This is what is called injected Script, The Attacker pretends to be posting a Message but instead the message is accompanied by some malicious code.
 <br>
 Now, logout and login as admin, assuming the admin want to read the posted messages.
@@ -160,3 +160,61 @@ Implement proper session management practices to minimize the risk of session hi
 
 9. Educate Developers<br>
 Ensure that developers are educated about security best practices and understand the common vectors for XSS attacks and how to prevent them.
+
+
+### Input Sanitization.
+Open your app.py and improve the /add route. by sanitizing user input in two variables namely message_title and message_body.
+
+In Terminal install. <br>
+
+         pip3 install bleach
+
+Then update your /add route to look like below <br>
+
+
+      # IMPORT BLEACH BELOW
+      import bleach
+      @app.route("/add", methods = ['POST', 'GET'])
+      def add():
+         # Is anyone logged in?
+         if 'userrole' in session:
+            # We retrieve the user who is logged in and the role
+            role = session['userrole']
+            # If its user, we access Add Page
+            if role == "user":
+                  if request.method =='POST':
+                     # UPDATE BELOW CODES, WE SANITIZE THE INPUTS
+                     message_title = bleach.clean(request.form['message_title'])
+                     message_body = bleach.clean(request.form['message_body'])
+
+         
+                     # we now save our message_title, message_body to database
+                     connection = pymysql.connect(host='localhost', user='root', password='',
+                                                database='CyberTestSystem')
+
+                     cursor = connection.cursor()
+                     # create an insert query to insert data to shop_users
+                     cursor.execute('insert into messages(message_title,message_body)values(%s,%s)',
+                                 (message_title, message_body))
+                     connection.commit() # write the record to the table
+                     return render_template('add.html', success='Thank you for Registering.')
+                  else:
+                     return render_template('add.html') 
+            else:
+                  return render_template("signin.html", message  = "Access Denied, Login in as a User.")
+         else:
+            return redirect('/signin')
+
+
+
+Delete the injected codes from the database, Login as a user, Post below message containing JS code, Post to database.
+
+         I was requesting for an off.
+          <script>alert("Hello JS");</script>
+         Thank you.
+
+Confirm in your database, messages table. Notice that the JS code is Sanitized,Its not saved as Code.
+i.e the < > signs have been replaced by &lt  and  &gt respectively, This removes JS capabilities. <br> 
+
+Similary, Login as admin and view messages, Notice the Messages are well Viewed as they way it was Posted.
+END 
