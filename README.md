@@ -3,7 +3,7 @@
 
  ## Set Up
 
- ### Installations
+ ### Installation
 
     pip3 install pymysql 
 
@@ -13,7 +13,7 @@
  Run your Flask App.
  Access  http://127.0.0.1:5000/signin
 
- The Application has 2 user Account: Admin and User <br>
+ The Application has 2 user Account: Admin and User Roles<br>
  Admins can only View Messages and Users can Only Add a Message. <br>
 
  Login Credentials
@@ -22,4 +22,4 @@
   ![Alt text](db.png)
 
 
- The Applications demonstrates how to SOlve Broken Access Control Issues in Cyber Security by having different users have access to specific functions in the System. 
+ The Application demonstrates how to SOlve Broken Access Control Issues in Cyber Security by having different users have access to specific functions in the System. 
