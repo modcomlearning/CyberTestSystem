@@ -88,32 +88,39 @@ Attribute Encoding: Properly encode data being placed in HTML attributes. Use fu
 JavaScript Encoding: When inserting user data into JavaScript, ensure it's properly encoded to avoid script injection.
 
 <br>
+
 3. Content Security Policy (CSP)<br>
 Implement a Content Security Policy to restrict the sources from which your web application can load resources. This can help mitigate the impact of XSS by blocking the execution of malicious scripts.
 
 <br>
 Content-Security-Policy: script-src 'self';
 <br>
+
 4. HTTPOnly and Secure Cookies<br>
 HTTPOnly Cookies: Set the HttpOnly flag on cookies to prevent access to them via JavaScript.
 Secure Cookies: Use the Secure flag to ensure cookies are only sent over HTTPS.
 
 <br>
+
 5. Web Application Firewalls (WAFs)<br>
 Deploy a web application firewall that can detect and block malicious requests based on patterns.
 
 <br>
+
 6. Regular Security Audits and Penetration Testing<br>
 Conduct regular security audits and penetration testing to identify and fix vulnerabilities before they can be exploited.
 
 <br>
+
 7. Frameworks and Libraries<br>
 Use modern web frameworks that automatically handle many common security concerns, including XSS protection. For example, frameworks like React and Angular escape data by default.
 
 <br>
+
 8. Proper Session Management<br>
 Implement proper session management practices to minimize the risk of session hijacking due to XSS. This includes setting appropriate session timeouts and regenerating session IDs on login.
 
 <br>
+
 9. Educate Developers<br>
 Ensure that developers are educated about security best practices and understand the common vectors for XSS attacks and how to prevent them.
