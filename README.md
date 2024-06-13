@@ -19,7 +19,7 @@
  Login Credentials
 
 
-  ![Alt text](image.png)
+  ![Alt text](db.png)
 
 
  The Applications demonstrates how to SOlve Broken Access Control Issues in Cyber Security by having different users have access to specific functions in the System. 
